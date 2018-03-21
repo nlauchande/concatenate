@@ -1,0 +1,6 @@
+[package]
+name = "concatenate"
+version = "0.1.0"
+authors = ["nlauchande <nlauchande@gmail.com>"]
+
+[dependencies]
