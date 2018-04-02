@@ -2,6 +2,7 @@ use std::fs;
 use std::path::Path;
 use std::fs::File;
 use std::io::Read;
+use std::io::Write;
 
 fn  get_file(path: &Path) -> std::io::Result<String> {
     let mut f = File::open(path)?;
@@ -33,8 +34,12 @@ fn main() {
 
     let dir = "./resources";
 
+    let output_file = "output.concatenate";
+
     let contents = concat_dir(dir).unwrap();
 
-    println!("{}",contents);
+    let mut file = File::create(output_file);
+
+    file.unwrap().write_all(contents.as_bytes());
 
 }
