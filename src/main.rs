@@ -2,9 +2,7 @@ use std::fs;
 use std::path::Path;
 use std::fs::File;
 use std::io::Read;
-use std::io::Result;
 
-// A simple implementation of `% cat path`
 fn  get_file(path: &Path) -> std::io::Result<String> {
     let mut f = File::open(path)?;
     let mut s = String::new();
@@ -14,16 +12,9 @@ fn  get_file(path: &Path) -> std::io::Result<String> {
     }
 }
 
-fn main() {
-    println!("Hello, world!");
+fn concat_dir(dir_name: &str) -> std::io::Result<String> {
 
-    let folder = "/";
-
-    let ouput = "output.concatenate";
-
-    let mut buffer = String::new();
-
-    let paths = fs::read_dir("./resources").unwrap();
+    let paths = fs::read_dir(dir_name).unwrap();
 
     let mut contents = String::new();
 
@@ -35,6 +26,15 @@ fn main() {
 
     }
 
+    Ok(contents)
+}
+
+fn main() {
+
+    let dir = "./resources";
+
+    let contents = concat_dir(dir).unwrap();
 
     println!("{}",contents);
+
 }
