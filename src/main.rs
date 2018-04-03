@@ -23,8 +23,6 @@ fn concat_dir(dir_name: &str) -> std::io::Result<String> {
 
     let mut contents = String::new();
 
-    println!("With text:\n{}", contents);
-
     for path in paths {
         let new_content = get_file(&path.unwrap().path());
         contents.push_str(&new_content.unwrap())
