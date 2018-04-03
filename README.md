@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/nlauchande/duma.svg?branch=master)](https://travis-ci.org/nlauchande/concatenate)
+[![Build Status](https://travis-ci.org/nlauchande/concatenate.svg?branch=master)](https://travis-ci.org/nlauchande/concatenate)
 
 # concatenate
 Tool to concatenate files locally . Some people call it a less shiny version of cat .
