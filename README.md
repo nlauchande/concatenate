@@ -10,7 +10,7 @@ Tool to concatenate files locally . Some people call it a less shiny version of 
 
 ```
 Concatenate 0.0.1
-Natu Lauchande <nlauchande@gmail.com>
+Natu Lauchande <nlauchande at google free domain mail>
 Concatenate tool for the command line in rust
 
 USAGE:
