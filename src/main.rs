@@ -42,17 +42,24 @@ fn main() {
         .author("Natu Lauchande <nlauchande@gmail.com>")
         .about("Concatenate tool for the command line in rust")
         .arg(Arg::with_name("DIR")
+            .short("d")
+            .long("dir")
             .required(true)
-            .takes_value(true)
             .index(1)
-            .help("directory"))
+            .takes_value(true)
+            .help("directory with files to be concatenated"))
+        .arg(Arg::with_name("OUTPUT")
+            .short("o")
+            .long("output")
+            .required(true)
+            .index(2)
+            .takes_value(true)
+            .help("directory with files to be concatenated"))
         .get_matches();
 
     let dir = matches.value_of("DIR").unwrap();
 
-    let dir = "./resources";
-
-    let output_file = "output.concatenate";
+    let output_file = matches.value_of("OUTPUT").unwrap();
 
     let contents = concat_dir(dir).unwrap();
 
