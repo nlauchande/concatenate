@@ -34,7 +34,6 @@ fn concat_dir(dir_name: &str) -> std::io::Result<String> {
     Ok(contents)
 }
 
-// Todo: Receive input dir and output file as parameters from the command line
 fn main() {
 
     let matches = App::new("Concatenate")
