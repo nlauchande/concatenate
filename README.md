@@ -24,7 +24,7 @@ FLAGS:
 
 ARGS:
     <DIR>       directory with files to be concatenated
-    <OUTPUT>    directory with files to be concatenated
+    <OUTPUT>    name of the file with the complete files to be merged from dir
 ```
 
 ## license

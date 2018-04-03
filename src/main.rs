@@ -54,7 +54,7 @@ fn main() {
             .required(true)
             .index(2)
             .takes_value(true)
-            .help("directory with files to be concatenated"))
+            .help("name of the output file with all the contents merged"))
         .get_matches();
 
     let dir = matches.value_of("DIR").unwrap();
