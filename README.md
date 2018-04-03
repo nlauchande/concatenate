@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mattgathu/duma.svg?branch=master)](https://travis-ci.org/mattgathu/duma)
+
 # concatenate
 Tool to concatenate files locally . Some people call it a less shiny version of cat .
 
