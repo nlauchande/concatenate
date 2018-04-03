@@ -7,6 +7,8 @@ Tool to concatenate files locally . Some people call it a less shiny version of 
 * Customizable output
 
 ## Usage
+
+```
 Concatenate 0.0.1
 Natu Lauchande <nlauchande@gmail.com>
 Concatenate tool for the command line in rust
@@ -21,6 +23,7 @@ FLAGS:
 ARGS:
     <DIR>       directory with files to be concatenated
     <OUTPUT>    directory with files to be concatenated
+```
 
 ## license
 
