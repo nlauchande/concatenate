@@ -27,6 +27,11 @@ ARGS:
     <OUTPUT>    name of the file with the complete files to be merged from dir
 ```
 
+## screenshot
+
+![screenshot](screenshot.png)
+
+
 ## license
 
 This project is license used the MIT license. See [LICENSE](LICENSE) for more details.
