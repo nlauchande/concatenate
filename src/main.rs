@@ -65,3 +65,11 @@ fn main() {
     file.unwrap().write_all(contents.as_bytes());
 
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
+        assert_eq!(2 + 2, 4);
+    }
+}
