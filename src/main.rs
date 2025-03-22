@@ -5,6 +5,7 @@ use std::io::Read;
 use std::io::Write;
 
 extern crate clap;
+extern crate tempfile;
 
 use clap::{Arg, App};
 
@@ -18,15 +19,26 @@ fn  get_file(path: &Path) -> std::io::Result<String> {
 }
 
 fn concat_dir(dir_name: &str) -> std::io::Result<String> {
-
-    let paths = fs::read_dir(dir_name).unwrap();
-
-    let mut contents = String::new();
-
+    let paths = fs::read_dir(dir_name)?;
+    
+    // Collect and sort file paths for consistent output
+    let mut file_paths = Vec::new();
     for path in paths {
-        let new_content = get_file(&path.unwrap().path());
-        contents.push_str(&new_content.unwrap())
-
+        file_paths.push(path?.path());
+    }
+    file_paths.sort();
+    
+    let mut contents = String::new();
+    
+    for file_path in file_paths {
+        if file_path.is_file() {
+            if let Ok(new_content) = get_file(&file_path) {
+                contents.push_str(&new_content);
+                contents.push('\n');
+            } else {
+                eprintln!("Warning: Could not read file: {:?}", file_path);
+            }
+        }
     }
 
     Ok(contents)
@@ -58,18 +70,56 @@ fn main() {
 
     let output_file = matches.value_of("OUTPUT").unwrap();
 
-    let contents = concat_dir(dir).unwrap();
-
-    let mut file = File::create(output_file);
-
-    file.unwrap().write_all(contents.as_bytes());
-
+    match concat_dir(dir) {
+        Ok(contents) => {
+            match File::create(output_file) {
+                Ok(mut file) => {
+                    if let Err(e) = file.write_all(contents.as_bytes()) {
+                        eprintln!("Error writing to output file: {}", e);
+                        std::process::exit(1);
+                    }
+                },
+                Err(e) => {
+                    eprintln!("Error creating output file: {}", e);
+                    std::process::exit(1);
+                }
+            }
+        },
+        Err(e) => {
+            eprintln!("Error reading from directory: {}", e);
+            std::process::exit(1);
+        }
+    }
 }
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+    use std::fs;
+    use std::io::Write;
+    use std::path::Path;
+    extern crate tempfile;
+    use tempfile::tempdir;
+
     #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
+    fn test_concat_dir() {
+        // Create a temporary directory
+        let dir = tempdir().unwrap();
+        
+        // Create test files
+        let file1_path = dir.path().join("file1.txt");
+        let mut file1 = File::create(&file1_path).unwrap();
+        writeln!(file1, "Content of file 1").unwrap();
+        
+        let file2_path = dir.path().join("file2.txt");
+        let mut file2 = File::create(&file2_path).unwrap();
+        writeln!(file2, "Content of file 2").unwrap();
+        
+        // Test the function
+        let result = concat_dir(dir.path().to_str().unwrap()).unwrap();
+        
+        // Check that result contains both files' contents
+        assert!(result.contains("Content of file 1"));
+        assert!(result.contains("Content of file 2"));
     }
 }

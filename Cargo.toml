@@ -5,3 +5,6 @@ authors = ["nlauchande <nlauchande@gmail.com>"]
 
 [dependencies]
 clap = "2.26.0"
+
+[dev-dependencies]
+tempfile = "3.8.0"
